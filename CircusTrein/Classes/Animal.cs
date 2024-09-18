@@ -1,6 +1,5 @@
 namespace CircusTrein.Classes;
 
-
 public enum AnimalSize
 {
     Small = 1,
@@ -16,45 +15,45 @@ public enum AnimalDiet
 
 public class Animal
 {
-    
     public string Name { get; private set; }
     public AnimalSize Size { get; private set; }
     public AnimalDiet Diet { get; private set; }
 
-    
-    
     public Animal(string name, AnimalSize size, AnimalDiet diet)
     {
         Name = name;
         Size = size;
         Diet = diet;
     }
-    
-    
-    public bool IsCompatibleWith(Animal animal)
+
+    public Animal( AnimalSize size, AnimalDiet diet) : this("Animal", size, diet)
     {
-        bool success = true;
-        
-        if (Diet == AnimalDiet.Carnivore && animal.Diet == AnimalDiet.Herbivore)
+    }
+    
+
+    public bool IsCompatibleWith(Animal otherAnimal)
+    {
+        if (this.Diet == AnimalDiet.Carnivore && otherAnimal.Diet == AnimalDiet.Herbivore && this.Size >= otherAnimal.Size)
         {
-            success = false;
+            return false;
         }
-        
-        if (Diet == AnimalDiet.Herbivore && animal.Diet == AnimalDiet.Carnivore)
+
+        if (this.Diet == AnimalDiet.Herbivore && otherAnimal.Diet == AnimalDiet.Carnivore && this.Size <= otherAnimal.Size)
         {
-            success = false;
+            return false;
         }
-        
-        if (Size == AnimalSize.Small && animal.Size == AnimalSize.Large)
+
+        if ((this.Diet == AnimalDiet.Carnivore && this.Size >= otherAnimal.Size) ||
+            (otherAnimal.Diet == AnimalDiet.Carnivore && otherAnimal.Size >= this.Size))
         {
-            success = false;
+            return false;
         }
-        
-        if (Size == AnimalSize.Large && animal.Size == AnimalSize.Small)
-        {
-            success = false;
-        }
-        
-        return success;
+
+        return true;
+    }
+
+    public override string ToString()
+    {
+        return $"{Name} ({Size}) ({Diet})";
     }
 }

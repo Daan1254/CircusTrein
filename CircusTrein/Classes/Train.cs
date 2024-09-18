@@ -1,57 +1,26 @@
+using System.Collections.ObjectModel;
+
 namespace CircusTrein.Classes;
 
 public class Train
 {
     private List<Wagon> _wagons = new List<Wagon>();
+    public ReadOnlyCollection<Wagon> Wagons => _wagons.AsReadOnly();
+    public int TotalAnimalCount => _wagons.Sum(wagon => wagon.GetAnimalCount());
     
-    public void AddWagon(List<Animal> animals)
-    {
-        
-    } 
-    
-    
-    public void RemoveWagon()
-    {
-        
-    }
-    
-    
-    public int TotalCapacity()
-    {
-        return 0;
-    }
-    
-    public int TotalAnimalCount()
-    {
-        int total = 0;
-        foreach (Wagon wagon in _wagons)
-        {
-            total += wagon.GetAnimalCount();
-        }
-        return total;
-    }
 
     public void FillTrain(List<Animal> animals)
     {
         List<Animal> sortedAnimals = animals
-            .OrderBy(animal => animal.Diet)
-            .ThenBy(animal => animal.Size)
+            .OrderByDescending(animal => animal.Size)
+            .ThenBy(animal => animal.Diet) // Carnivores first.
             .ToList();
-        
-        
+
         foreach (Animal animal in sortedAnimals)
         {
-            bool foundSpace = false;
-            foreach (Wagon wagon in _wagons)
-            {
-                if (wagon.CanAddAnimal(animal))
-                {
-                    wagon.AddAnimal(animal);
-                    foundSpace = true;
-                }
-            }
+            Wagon? suitableWagon = FindWagonForAnimal(animal);
 
-            if (!foundSpace)
+            if (suitableWagon == null) 
             {
                 Wagon newWagon = new Wagon();
                 newWagon.AddAnimal(animal);
@@ -59,13 +28,27 @@ public class Train
             }
         }
     }
-    
+
+    private Wagon? FindWagonForAnimal(Animal animal)
+    {
+        foreach (var wagon in _wagons)
+        {
+            if (wagon.CanAddAnimal(animal))
+            {
+                wagon.AddAnimal(animal);
+                return wagon;
+            }
+        }
+
+        // No suitable wagon found.
+        return null;
+    }
+
     public void PrintTrain()
     {
-        // Print the Train with all wagons in a string
-        Console.WriteLine($"Train with {_wagons.Count} wagons and {TotalAnimalCount()} animals.");
-        
-        foreach (Wagon wagon in _wagons)
+        Console.WriteLine($"Train with {_wagons.Count} wagons and {TotalAnimalCount} animals.");
+
+        foreach (var wagon in _wagons)
         {
             wagon.PrintWagon();
         }

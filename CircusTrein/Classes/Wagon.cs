@@ -2,25 +2,17 @@ namespace CircusTrein.Classes;
 
 public class Wagon
 {
-    private int _capacity;
-    
+    private const int Capacity = 10; // Wagon's total capacity.
+    private int _remainingCapacity = Capacity; // Tracks remaining space.
     private List<Animal> _animals = new List<Animal>();
-    
-    public Wagon()
-    {
-        this._capacity = 10;
-    }
-    
+
     public void AddAnimal(Animal animal)
     {
-        _animals.Add(animal);
-        
-        _capacity -= (int) animal.Size;
-    }
-
-    private bool IsFull()
-    {
-        return _capacity < 1;
+        if (CanAddAnimal(animal))
+        {
+            _animals.Add(animal);
+            _remainingCapacity -= (int)animal.Size;
+        }
     }
 
     public int GetAnimalCount()
@@ -28,40 +20,38 @@ public class Wagon
         return _animals.Count;
     }
 
-  
-
-    private bool IsSpace(AnimalSize size)
+    public int GetRemainingCapacity()
     {
-        return _capacity < (int) size;
+        return _remainingCapacity;
     }
-    
+
+    private bool HasEnoughSpace(Animal animal)
+    {
+        return _remainingCapacity >= (int)animal.Size;
+    }
+
     public bool CanAddAnimal(Animal animal)
     {
-        if (IsSpace(animal.Size))
+        if (!HasEnoughSpace(animal)) return false;
+
+        foreach (var animalInWagon in _animals)
         {
-            return false;
-        }
-        
-        foreach (Animal animalInWagon in _animals)
-        {
-            if (animalInWagon.IsCompatibleWith(animal))
+            if (!animalInWagon.IsCompatibleWith(animal))
             {
-                return true;
+                return false; 
             }
         }
-       
-        return false;
-    }
 
+        return true;
+    }
 
     public void PrintWagon()
     {
-        Console.WriteLine("Wagon with " + GetAnimalCount() + " animals. (Remaining capacity: " + _capacity + ")");
-        
-        foreach (Animal animal in _animals)
+        Console.WriteLine($"Wagon with {GetAnimalCount()} animals. (Remaining capacity: {GetRemainingCapacity()})");
+
+        foreach (var animal in _animals)
         {
             Console.WriteLine($" - {animal.Name} ({animal.Size}) ({animal.Diet})");
         }
     }
-    
 }
