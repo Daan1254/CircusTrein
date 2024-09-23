@@ -13,6 +13,8 @@ public class Tests
         new Scenario(1,1,1,1,1,1,4),
         new Scenario(1,1,2,1,5,1,5),
         new Scenario(1,0,0,1,1,2,2),
+        new Scenario(3,0,0,0,2,3,3),
+        new Scenario(7,3,3,0,5,6,13),
     };
 
     // This method will serve as a source for TestCaseSource attribute
@@ -25,6 +27,8 @@ public class Tests
             new Scenario(1,1,1,1,1,1,4),
             new Scenario(1,1,2,1,5,1,5),
             new Scenario(1,0,0,1,1,2,2),
+            new Scenario(3,0,0,0,2,3,3),
+            new Scenario(7,3,3,0,5,6,13),
         };
     }
 
@@ -74,10 +78,7 @@ public class Tests
         Assert.That(
             train.Wagons.Count,
             Is.EqualTo(scenario.ExpectedWagonCount),
-            $"Scenario failed: Expected {scenario.ExpectedWagonCount} wagons but got {train.Wagons.Count}. " +
-            $"Details - LargeCarnivores: {scenario.LargeCarnivoreCount}, MediumCarnivores: {scenario.MediumCarnivoreCount}, " +
-            $"SmallCarnivores: {scenario.SmallCarnivoreCount}, LargeHerbivores: {scenario.LargeHerbivoreCount}, " +
-            $"MediumHerbivores: {scenario.MediumHerbivoreCount}, SmallHerbivores: {scenario.SmallHerbivoreCount}."
+            $"Scenario failed: Expected {scenario.ExpectedWagonCount} wagons but got {train.Wagons.Count}. "
         );
     }
 }

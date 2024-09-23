@@ -6,7 +6,7 @@ public class Train
 {
     private List<Wagon> _wagons = new List<Wagon>();
     public ReadOnlyCollection<Wagon> Wagons => _wagons.AsReadOnly();
-    public int TotalAnimalCount => _wagons.Sum(wagon => wagon.GetAnimalCount());
+    private int TotalAnimalCount => _wagons.Sum(wagon => wagon.GetAnimalCount());
     
 
     public void FillTrain(List<Animal> animals)
