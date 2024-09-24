@@ -1,56 +1,77 @@
 using System.Collections.ObjectModel;
 
-namespace CircusTrein.Classes;
-
-public class Train
+namespace CircusTrein.Classes
 {
-    private List<Wagon> _wagons = new List<Wagon>();
-    public ReadOnlyCollection<Wagon> Wagons => _wagons.AsReadOnly();
-    private int TotalAnimalCount => _wagons.Sum(wagon => wagon.GetAnimalCount());
-    
-
-    public void FillTrain(List<Animal> animals)
+    public class Train
     {
-        List<Animal> sortedAnimals = animals
-            .OrderByDescending(animal => animal.Size)
-            .ThenBy(animal => animal.Diet) // Carnivores first.
-            .ToList();
+        private List<Wagon> _wagons = new List<Wagon>();
+        public ReadOnlyCollection<Wagon> Wagons => _wagons.AsReadOnly();
+        private int TotalAnimalCount => _wagons.Sum(wagon => wagon.GetAnimalCount());
 
-        foreach (Animal animal in sortedAnimals)
+        public void FillTrain(List<Animal> animals)
         {
-            Wagon? suitableWagon = FindWagonForAnimal(animal);
+            List<Animal> carnivores = animals.Where(animal => animal.Diet == AnimalDiet.Carnivore).ToList();
+            List<Animal> herbivores = animals.Where(animal => animal.Diet == AnimalDiet.Herbivore).ToList();
 
-            if (suitableWagon == null) 
-            {
-                Wagon newWagon = new Wagon();
-                newWagon.AddAnimal(animal);
-                _wagons.Add(newWagon);
-            }
-        }
-    }
+            List<Animal> carnivoresAscending = carnivores.OrderBy(a => a.Size).ToList();
+            List<Animal> carnivoresDescending = carnivores.OrderByDescending(a => a.Size).ToList();
 
-    private Wagon? FindWagonForAnimal(Animal animal)
-    {
-        foreach (var wagon in _wagons)
-        {
-            if (wagon.CanAddAnimal(animal))
-            {
-                wagon.AddAnimal(animal);
-                return wagon;
-            }
+            List<Animal> herbivoresAscending = herbivores.OrderBy(a => a.Size).ToList();
+            List<Animal> herbivoresDescending = herbivores.OrderByDescending(a => a.Size).ToList();
+
+            List<Wagon> option1 = FillTrainWithAnimals(carnivoresAscending.Concat(herbivoresAscending).ToList());
+            List<Wagon> option2 = FillTrainWithAnimals(carnivoresAscending.Concat(herbivoresDescending).ToList());
+            List<Wagon> option3 = FillTrainWithAnimals(carnivoresDescending.Concat(herbivoresAscending).ToList());
+            List<Wagon> option4 = FillTrainWithAnimals(carnivoresDescending.Concat(herbivoresDescending).ToList());
+
+            _wagons = new List<List<Wagon>> { option1, option2, option3, option4 }
+                .OrderBy(wagonList => wagonList.Count)
+                .First();
         }
 
-        // No suitable wagon found.
-        return null;
-    }
-
-    public void PrintTrain()
-    {
-        Console.WriteLine($"Train with {_wagons.Count} wagons and {TotalAnimalCount} animals.");
-
-        foreach (var wagon in _wagons)
+        private List<Wagon> FillTrainWithAnimals(List<Animal> sortedAnimals)
         {
-            wagon.PrintWagon();
+            // Create a temporary list of wagons
+            List<Wagon> tempWagons = new List<Wagon>();
+
+            foreach (Animal animal in sortedAnimals)
+            {
+                Wagon? suitableWagon = FindWagonForAnimal(animal, tempWagons);
+
+                if (suitableWagon == null)
+                {
+                    Wagon newWagon = new Wagon();
+                    newWagon.AddAnimal(animal);
+                    tempWagons.Add(newWagon);
+                }
+            }
+
+            return tempWagons;
+        }
+
+        private Wagon? FindWagonForAnimal(Animal animal, List<Wagon> wagons)
+        {
+            foreach (var wagon in wagons)
+            {
+                if (wagon.CanAddAnimal(animal))
+                {
+                    wagon.AddAnimal(animal);
+                    return wagon;
+                }
+            }
+
+            // No suitable wagon found
+            return null;
+        }
+
+        public void PrintTrain()
+        {
+            Console.WriteLine($"Train with {_wagons.Count} wagons and {TotalAnimalCount} animals.");
+
+            foreach (var wagon in _wagons)
+            {
+                wagon.PrintWagon();
+            }
         }
     }
 }
