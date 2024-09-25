@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircusTrein", "CircusTrein\CircusTrein.csproj", "{51CE2752-4550-4004-9EC7-4FE2E3F5D9A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{2D12A5E1-A5DC-40E5-86C9-C007C2A1CCE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircusTreinTest", "CircusTreinTest\CircusTreinTest.csproj", "{2D12A5E1-A5DC-40E5-86C9-C007C2A1CCE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

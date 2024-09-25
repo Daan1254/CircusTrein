@@ -2,5 +2,5 @@
 /.idea
 /CircusTrein/bin
 /CircusTrein/obj
-/UnitTest/obj
-/UnitTest/bin
+/CircusTreinTest/bin
+/CircusTreinTest/obj

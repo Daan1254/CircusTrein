@@ -3,7 +3,7 @@ using CircusTrein.Classes;
 
 namespace UnitTest;
 
-public class Tests
+public class TrainTests
 {
     // List of scenarios
     List<Scenario> scenarios = new List<Scenario>
@@ -52,8 +52,9 @@ public class Tests
     }
 
     [Test, TestCaseSource(nameof(ScenarioSource))]
-    public void TestAllScenarios(Scenario scenario)
+    public void FillTrain_(Scenario scenario) // dro.pm/av (https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices)
     {
+        //arrange
         Train train = new Train();
         List<Animal> animals = new List<Animal>();
 
@@ -86,9 +87,11 @@ public class Tests
         {
             animals.Add(new Animal(AnimalSize.Small, AnimalDiet.Herbivore));
         }
-
+        
+        //act
         train.FillTrain(animals);
-
+    
+        //assert
         Assert.That(
             train.Wagons.Count,
             Is.EqualTo(scenario.ExpectedWagonCount),

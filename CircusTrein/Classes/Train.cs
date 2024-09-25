@@ -32,18 +32,17 @@ namespace CircusTrein.Classes
         private List<Wagon> FillTrainWithAnimals(List<Animal> sortedAnimals)
         {
             // Create a temporary list of wagons
-            List<Wagon> tempWagons = new List<Wagon>();
+            List<Wagon> tempWagons = [];
 
             foreach (Animal animal in sortedAnimals)
             {
                 Wagon? suitableWagon = FindWagonForAnimal(animal, tempWagons);
 
-                if (suitableWagon == null)
-                {
-                    Wagon newWagon = new Wagon();
-                    newWagon.AddAnimal(animal);
-                    tempWagons.Add(newWagon);
-                }
+                if (suitableWagon != null) continue;
+                
+                Wagon newWagon = new Wagon();
+                newWagon.AddAnimal(animal);
+                tempWagons.Add(newWagon);
             }
 
             return tempWagons;
