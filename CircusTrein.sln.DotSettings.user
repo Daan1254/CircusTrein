@@ -2,5 +2,6 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1f204e20_002D4bdb_002D46c0_002Da4ed_002Dc5761ef211cb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="IsCompatibleWith_CarnivoreAndHerbivore_ReturnsFalse" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::2D12A5E1-A5DC-40E5-86C9-C007C2A1CCE7::net8.0::UnitTest.AnimalTests.IsCompatibleWith_&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::2D12A5E1-A5DC-40E5-86C9-C007C2A1CCE7::net8.0::UnitTest.WagonTests.AddAnimalToWagonTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

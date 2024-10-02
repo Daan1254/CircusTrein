@@ -5,6 +5,17 @@ public class Wagon
     private const int Capacity = 10; // Wagon's total capacity.
     private int _remainingCapacity = Capacity; // Tracks remaining space.
     private List<Animal> _animals = new List<Animal>();
+    public int GetAnimalCount() => _animals.Count;
+
+
+    public Wagon()
+    {
+        
+    }
+    public Wagon(List<Animal> animals) : base()
+    {
+        _animals = animals;
+    }
 
     public void AddAnimal(Animal animal)
     {
@@ -14,11 +25,7 @@ public class Wagon
             _remainingCapacity -= (int)animal.Size;
         }
     }
-
-    public int GetAnimalCount()
-    {
-        return _animals.Count;
-    }
+    
 
     public int GetRemainingCapacity()
     {
