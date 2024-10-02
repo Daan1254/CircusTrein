@@ -15,4 +15,14 @@ public class AnimalScenario
     
     // Expected Result
     public bool ExpectedResult { get; set; }
+
+
+    public AnimalScenario(AnimalSize sizeOne, AnimalDiet dietOne, AnimalSize sizeTwo, AnimalDiet dietTwo, bool expectedResult)
+    {
+        SizeOne = sizeOne;
+        DietOne = dietOne;
+        SizeTwo = sizeTwo;
+        DietTwo = dietTwo;
+        ExpectedResult = expectedResult;
+    }
 }
