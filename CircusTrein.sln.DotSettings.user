@@ -3,5 +3,7 @@
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::2D12A5E1-A5DC-40E5-86C9-C007C2A1CCE7::net8.0::UnitTest.AnimalTests.IsCompatibleWith_&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::2D12A5E1-A5DC-40E5-86C9-C007C2A1CCE7::net8.0::UnitTest.WagonTests.AddAnimalToWagonTests&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::2D12A5E1-A5DC-40E5-86C9-C007C2A1CCE7::net8.0::UnitTest.TrainTests.TestAllTrainScenarios&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::2D12A5E1-A5DC-40E5-86C9-C007C2A1CCE7::net8.0::UnitTest.AnimalTests.TestAllAnimalScenarios&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

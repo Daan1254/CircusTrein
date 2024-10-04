@@ -5,25 +5,6 @@ namespace UnitTest;
 
 public class TrainTests
 {
-    // List of scenarios
-    List<TrainScenario> scenarios = new List<TrainScenario>
-    {
-        new TrainScenario(1,0,0,0,3,2,2),
-        new TrainScenario(1,0,0,5,2,1,2),
-        new TrainScenario(1,1,1,1,1,1,4),
-        new TrainScenario(1,1,2,1,5,1,5),
-        new TrainScenario(1,0,0,1,1,2,2),
-        new TrainScenario(3,0,0,0,2,3,3),
-        new TrainScenario(7,3,3,0,5,6,13),
-        new TrainScenario(0, 0, 0, 5, 3, 1, 2),
-        new TrainScenario(1, 3, 2, 0, 0, 3, 6),
-        new TrainScenario(2, 2, 2, 5, 5, 5, 8),
-        new TrainScenario(0, 0, 0, 1, 3, 2, 2),
-        new TrainScenario(1, 0, 0, 3, 2, 1, 2),
-        new TrainScenario(2, 0, 0, 0, 2, 2, 2),
-        new TrainScenario(2, 0, 0, 0, 6, 2, 3)
-    };
-
     // This method will serve as a source for TestCaseSource attribute
     public static IEnumerable<TrainScenario> ScenarioSource()
     {
@@ -52,7 +33,7 @@ public class TrainTests
     }
 
     [Test, TestCaseSource(nameof(ScenarioSource))]
-    public void FillTrain_(TrainScenario trainScenario) // dro.pm/av (https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices)
+    public void TestAllTrainScenarios(TrainScenario trainScenario) // dro.pm/av (https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices)
     {
         //arrange
         Train train = new Train();
